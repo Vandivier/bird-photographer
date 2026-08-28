@@ -39,3 +39,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# screenshots / photos captured at runtime (smoke tests, saved snaps)
+/scripts/*.png
+/captures/
