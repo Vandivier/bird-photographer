@@ -37,7 +37,7 @@ export const SPECIES: Species[] = [
   species("bluebird", "bluebird", "bluebird.png", "#0ea5e9", "#ffffff"),
   species("european-roller", "european roller", "coracias-garrulus.png", "#6366f1", "#ffffff"),
   species("domestic-goose", "domestic goose", "domestic_goose.png", "#e5e7eb", "#374151"),
-  species("eagle", "eagle", "eagle.jpg", "#92400e", "#ffffff"),
+  species("eagle", "eagle", "eagle.png", "#92400e", "#ffffff"),
   species("kiwi", "kiwi", "Kiwi_bird.png", "#a16207", "#ffffff"),
   species("penguin", "penguin", "penguin.png", "#1f2937", "#ffffff"),
 ];
