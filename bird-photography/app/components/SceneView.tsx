@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   BIRD_H,
   BIRD_W,
@@ -6,6 +7,37 @@ import {
   type BirdState,
   type Scene,
 } from "../lib/birds";
+
+function BirdSprite({ bird, animateWings }: { bird: BirdState; animateWings: boolean }) {
+  const [imageFailed, setImageFailed] = useState(false);
+  const flip = bird.vx < 0;
+
+  return (
+    <div
+      className={`absolute ${animateWings ? "animate-pulse" : ""}`}
+      style={{ left: bird.x, top: bird.y, width: BIRD_W, height: BIRD_H }}
+    >
+      {imageFailed ? (
+        <div
+          className="flex h-full w-full items-center justify-center rounded-lg border-2 border-black/20 text-center text-sm font-semibold shadow-md"
+          style={{ background: bird.species.bg, color: bird.species.text }}
+        >
+          {bird.species.name}
+        </div>
+      ) : (
+        // eslint-disable-next-line @next/next/no-img-element
+        <img
+          src={bird.species.imageUri}
+          alt={bird.species.name}
+          draggable={false}
+          onError={() => setImageFailed(true)}
+          className="h-full w-full object-contain drop-shadow-md"
+          style={flip ? { transform: "scaleX(-1)" } : undefined}
+        />
+      )}
+    </div>
+  );
+}
 
 type Props = {
   scene: Scene;
@@ -84,22 +116,7 @@ export default function SceneView({ scene, birds, animateWings = false }: Props)
       ))}
 
       {birds.map((b) => (
-        <div
-          key={b.key}
-          className={`absolute flex items-center justify-center rounded-lg border-2 border-black/20 text-sm font-semibold shadow-md ${
-            animateWings ? "animate-pulse" : ""
-          }`}
-          style={{
-            left: b.x,
-            top: b.y,
-            width: BIRD_W,
-            height: BIRD_H,
-            background: b.species.bg,
-            color: b.species.text,
-          }}
-        >
-          {b.species.name}
-        </div>
+        <BirdSprite key={b.key} bird={b} animateWings={animateWings} />
       ))}
     </div>
   );

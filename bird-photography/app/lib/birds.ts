@@ -2,25 +2,44 @@ export const SCENE_W = 800;
 export const SCENE_H = 500;
 export const LENS_W = 280;
 export const LENS_H = 180;
-export const BIRD_W = 88;
-export const BIRD_H = 44;
+export const BIRD_W = 96;
+export const BIRD_H = 72;
+
+// Base dir for bird images. Parameterized so this can point at a different
+// output dir (e.g. after an image-normalization pass); file names are stable.
+export const BIRD_IMAGE_BASE =
+  process.env.NEXT_PUBLIC_BIRD_IMAGE_DIR ?? "/bird-images";
 
 export type Species = {
-  id: string;
+  birdId: string;
   name: string;
+  imageUri: string;
   bg: string;
   text: string;
 };
 
+const species = (
+  birdId: string,
+  name: string,
+  imageFile: string,
+  bg: string,
+  text: string
+): Species => ({
+  birdId,
+  name,
+  imageUri: `${BIRD_IMAGE_BASE}/${imageFile}`,
+  bg,
+  text,
+});
+
 export const SPECIES: Species[] = [
-  { id: "bluebird", name: "bluebird", bg: "#0ea5e9", text: "#ffffff" },
-  { id: "redbird", name: "redbird", bg: "#dc2626", text: "#ffffff" },
-  { id: "crow", name: "crow", bg: "#1f2937", text: "#ffffff" },
-  { id: "goldfinch", name: "goldfinch", bg: "#eab308", text: "#1f2937" },
-  { id: "oriole", name: "oriole", bg: "#f97316", text: "#ffffff" },
-  { id: "sparrow", name: "sparrow", bg: "#a16207", text: "#ffffff" },
-  { id: "hummingbird", name: "hummingbird", bg: "#10b981", text: "#ffffff" },
-  { id: "dove", name: "dove", bg: "#e5e7eb", text: "#374151" },
+  species("alpine-swift", "alpine swift", "alpine_swift.png", "#475569", "#ffffff"),
+  species("bluebird", "bluebird", "bluebird.png", "#0ea5e9", "#ffffff"),
+  species("european-roller", "european roller", "coracias-garrulus.png", "#6366f1", "#ffffff"),
+  species("domestic-goose", "domestic goose", "domestic_goose.png", "#e5e7eb", "#374151"),
+  species("eagle", "eagle", "eagle.jpg", "#92400e", "#ffffff"),
+  species("kiwi", "kiwi", "Kiwi_bird.png", "#a16207", "#ffffff"),
+  species("penguin", "penguin", "penguin.png", "#1f2937", "#ffffff"),
 ];
 
 export type BirdState = {
